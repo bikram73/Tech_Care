@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DiagnosisHistoryItem } from '../types';
 import { BloodPressureChart } from './BloodPressureChart';
 import { VitalCard } from './VitalCard';
 import { RespiratoryIcon, TemperatureIcon, HeartRateIcon } from './Icons';
-import { ChevronDown, ArrowUp, ArrowDown } from 'lucide-react';
+import { ChevronDown, ArrowUp, ArrowDown, Check } from 'lucide-react';
 
 interface DiagnosisHistoryProps {
   diagnosisHistory: DiagnosisHistoryItem[];
@@ -12,6 +12,9 @@ interface DiagnosisHistoryProps {
 export const DiagnosisHistory: React.FC<DiagnosisHistoryProps> = ({
   diagnosisHistory = [],
 }) => {
+  const [timeframe, setTimeframe] = useState<'6' | '3' | 'all'>('6');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   // Most recent record (e.g. March 2024)
   const latest = diagnosisHistory[diagnosisHistory.length - 1] || {
     month: 'March',
@@ -49,6 +52,12 @@ export const DiagnosisHistory: React.FC<DiagnosisHistoryProps> = ({
     ? 'higher'
     : 'normal';
 
+  const timeframeLabels: Record<'6' | '3' | 'all', string> = {
+    '6': 'Last 6 months',
+    '3': 'Last 3 months',
+    'all': 'All Records',
+  };
+
   return (
     <section className="w-full bg-white rounded-[16px] p-5 shadow-xs">
       {/* Section Heading */}
@@ -67,14 +76,52 @@ export const DiagnosisHistory: React.FC<DiagnosisHistoryProps> = ({
               <h3 className="text-[18px] font-bold text-[#072635]">
                 Blood Pressure
               </h3>
-              <div className="flex items-center gap-2 text-[12px] font-medium text-[#072635] select-none">
-                <span>Last 6 months</span>
-                <ChevronDown className="w-3.5 h-3.5 text-[#072635]" />
+              
+              {/* Interactive Timeframe Dropdown */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsDropdownOpen((prev) => !prev)}
+                  className="flex items-center gap-2 text-[12px] font-medium text-[#072635] hover:bg-white/60 px-2.5 py-1 rounded-md transition select-none cursor-pointer"
+                >
+                  <span>{timeframeLabels[timeframe]}</span>
+                  <ChevronDown className="w-3.5 h-3.5 text-[#072635]" />
+                </button>
+
+                {isDropdownOpen && (
+                  <>
+                    <div
+                      className="fixed inset-0 z-20"
+                      onClick={() => setIsDropdownOpen(false)}
+                    />
+                    <div className="absolute right-0 top-8 w-36 bg-white rounded-lg shadow-lg border border-slate-100 py-1 z-30 animate-in fade-in zoom-in-95">
+                      {(['6', '3', 'all'] as const).map((key) => (
+                        <button
+                          key={key}
+                          type="button"
+                          onClick={() => {
+                            setTimeframe(key);
+                            setIsDropdownOpen(false);
+                          }}
+                          className="w-full px-3 py-1.5 text-[12px] font-medium text-[#072635] hover:bg-[#F6F7F8] flex items-center justify-between transition cursor-pointer"
+                        >
+                          <span>{timeframeLabels[key]}</span>
+                          {timeframe === key && (
+                            <Check className="w-3.5 h-3.5 text-[#00D9C6]" />
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
             {/* Chart.js Component */}
-            <BloodPressureChart diagnosisHistory={diagnosisHistory} />
+            <BloodPressureChart
+              diagnosisHistory={diagnosisHistory}
+              timeframe={timeframe}
+            />
           </div>
 
           {/* Right: Stats Indicators */}

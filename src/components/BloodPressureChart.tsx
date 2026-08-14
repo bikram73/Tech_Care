@@ -25,17 +25,20 @@ ChartJS.register(
 
 interface BloodPressureChartProps {
   diagnosisHistory: DiagnosisHistoryItem[];
+  timeframe?: '6' | '3' | 'all';
 }
 
 export const BloodPressureChart: React.FC<BloodPressureChartProps> = ({
   diagnosisHistory,
+  timeframe = '6',
 }) => {
-  // Take last 6 months in chronological order if available
-  const sortedHistory = [...(diagnosisHistory || [])].slice(-6);
+  const historyList = diagnosisHistory || [];
+  const count = timeframe === '3' ? 3 : timeframe === '6' ? 6 : historyList.length;
+  const sortedHistory = count > 0 ? historyList.slice(-count) : historyList;
 
   const labels = sortedHistory.map((item) => {
-    const shortMonth = item.month.slice(0, 3);
-    return `${shortMonth}, ${item.year}`;
+    const shortMonth = item.month ? item.month.slice(0, 3) : '';
+    return `${shortMonth}, ${item.year || ''}`;
   });
 
   const systolicValues = sortedHistory.map(
@@ -82,7 +85,7 @@ export const BloodPressureChart: React.FC<BloodPressureChartProps> = ({
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false, // Custom legend displayed in XD layout
+        display: false,
       },
       tooltip: {
         backgroundColor: '#072635',

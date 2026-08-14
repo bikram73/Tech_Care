@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ApiPatient } from './types';
-import { fetchPatientsData } from './services/patientApi';
+import { getJessicaTaylor } from './services/patientApi';
 import { Header } from './components/Header';
 import { PatientSidebar } from './components/PatientSidebar';
 import { DiagnosisHistory } from './components/DiagnosisHistory';
@@ -13,32 +13,26 @@ import { ErrorState } from './components/ErrorState';
 export default function App() {
   const [activeTab, setActiveTab] = useState('patients');
   const [patients, setPatients] = useState<ApiPatient[]>([]);
-  const [targetPatient, setTargetPatient] = useState<ApiPatient | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [patient, setPatient] = useState<ApiPatient | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const loadData = async () => {
+  const loadPatientData = async () => {
     try {
-      setIsLoading(true);
-      setErrorMessage(null);
-      const data = await fetchPatientsData();
-      setPatients(data);
-
-      // Specifically find Jessica Taylor per PRD specification
-      const jessica =
-        data.find((p) => p.name.toLowerCase() === 'jessica taylor') ||
-        data[0] ||
-        null;
-      setTargetPatient(jessica);
+      setLoading(true);
+      setError(null);
+      const { patients: allPatients, jessica } = await getJessicaTaylor();
+      setPatients(allPatients);
+      setPatient(jessica);
     } catch (err: any) {
-      setErrorMessage(err.message || 'Failed to fetch patient data from Coalition API');
+      setError(err?.message || 'Unable to load patient data.');
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadData();
+    loadPatientData();
   }, []);
 
   return (
@@ -50,39 +44,40 @@ export default function App() {
         <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
         {/* Dynamic Loading State */}
-        {isLoading && <LoadingState />}
+        {loading && <LoadingState />}
 
         {/* Dynamic Error State */}
-        {!isLoading && errorMessage && (
-          <ErrorState message={errorMessage} onRetry={loadData} />
+        {!loading && error && (
+          <ErrorState message={error} onRetry={loadPatientData} />
         )}
 
-        {/* Main Dashboard Grid */}
-        {!isLoading && !errorMessage && targetPatient && (
+        {/* Main Dashboard Grid: displaying selected patient data */}
+        {!loading && !error && patient && (
           <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             
             {/* Left Column: Patients Sidebar */}
             <div className="lg:col-span-3">
               <PatientSidebar
                 patients={patients}
-                targetPatientName={targetPatient.name}
+                targetPatientName={patient.name}
+                onSelectPatient={(selected) => setPatient(selected)}
               />
             </div>
 
             {/* Middle Column: Diagnosis History & Diagnostic List */}
             <div className="lg:col-span-6 flex flex-col">
               <DiagnosisHistory
-                diagnosisHistory={targetPatient.diagnosis_history}
+                diagnosisHistory={patient.diagnosis_history}
               />
               <DiagnosticList
-                diagnosticList={targetPatient.diagnostic_list}
+                diagnosticList={patient.diagnostic_list}
               />
             </div>
 
             {/* Right Column: Patient Profile & Lab Results */}
             <div className="lg:col-span-3 flex flex-col">
-              <PatientProfile patient={targetPatient} />
-              <LabResults labResults={targetPatient.lab_results} />
+              <PatientProfile patient={patient} />
+              <LabResults labResults={patient.lab_results} />
             </div>
 
           </main>
