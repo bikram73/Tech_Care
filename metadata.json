@@ -1,0 +1,6 @@
+{
+  "name": "tech.care",
+  "description": "Tech.Care HealthCare Dashboard for patient diagnosis, vitals, history, and medical records.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
