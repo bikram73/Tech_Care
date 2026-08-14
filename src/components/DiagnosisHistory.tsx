@@ -3,7 +3,7 @@ import { DiagnosisHistoryItem } from '../types';
 import { BloodPressureChart } from './BloodPressureChart';
 import { VitalCard } from './VitalCard';
 import { RespiratoryIcon, TemperatureIcon, HeartRateIcon } from './Icons';
-import { ChevronDown, ArrowUp, ArrowDown, Check } from 'lucide-react';
+import { ChevronDown, ArrowUp, ArrowDown, Check, Activity } from 'lucide-react';
 
 interface DiagnosisHistoryProps {
   diagnosisHistory: DiagnosisHistoryItem[];
@@ -60,10 +60,50 @@ export const DiagnosisHistory: React.FC<DiagnosisHistoryProps> = ({
 
   return (
     <section className="w-full bg-white rounded-[16px] p-5 shadow-xs">
-      {/* Section Heading */}
-      <h2 className="text-[24px] font-extrabold text-[#072635] mb-6 tracking-tight">
-        Diagnosis History
-      </h2>
+      {/* Section Header with Clinic Banner Image */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+        <div>
+          <h2 className="text-[24px] font-extrabold text-[#072635] tracking-tight">
+            Diagnosis History
+          </h2>
+          <p className="text-[13px] text-[#707070]">
+            Continuous vitals tracking & telemetry overview
+          </p>
+        </div>
+
+        {/* Clinical Telemetry Badge */}
+        <div className="flex items-center gap-2 bg-[#DDF4FC] text-[#072635] px-3.5 py-1.5 rounded-full text-[12px] font-bold">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Live Telemetry Active</span>
+        </div>
+      </div>
+
+      {/* Clinical Care Consultation Banner with Healthcare Image */}
+      <div className="relative rounded-[12px] overflow-hidden mb-6 bg-gradient-to-r from-[#072635] via-[#0D3B53] to-[#124B68] text-white shadow-xs">
+        <div className="grid grid-cols-1 md:grid-cols-12 items-center">
+          <div className="md:col-span-8 p-5 lg:p-6 space-y-2">
+            <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#01F0D0]">
+              Attending Physician Review
+            </span>
+            <h3 className="text-[17px] sm:text-[19px] font-extrabold leading-snug">
+              Dr. Jose Simmons • General Practice Consultation
+            </h3>
+            <p className="text-[13px] text-slate-200 line-clamp-2">
+              Patient exhibits mild systolic elevation with stabilized diastolic values. Regular monitoring scheduled every 30 days.
+            </p>
+          </div>
+
+          <div className="md:col-span-4 relative h-36 md:h-full min-h-[140px] overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80"
+              alt="Medical physician review and healthcare diagnostic check"
+              className="w-full h-full object-cover object-center"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#072635] via-transparent to-transparent md:block hidden"></div>
+          </div>
+        </div>
+      </div>
 
       {/* Blood Pressure Card */}
       <div className="bg-[#F4F0FE] rounded-[12px] p-4 lg:p-5">

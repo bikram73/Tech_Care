@@ -12,14 +12,16 @@ import {
   LogOut,
   UserCheck,
   Check,
+  Globe,
 } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  onGoToLanding?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
+export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onGoToLanding }) => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -47,9 +49,23 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
         </div>
       )}
 
-      {/* Brand Logo */}
-      <div className="flex items-center cursor-pointer" onClick={() => setActiveTab('patients')}>
-        <TechCareLogo />
+      {/* Brand Logo & Portal Switcher */}
+      <div className="flex items-center gap-4">
+        <div className="flex items-center cursor-pointer" onClick={() => setActiveTab('patients')}>
+          <TechCareLogo />
+        </div>
+
+        {onGoToLanding && (
+          <button
+            type="button"
+            onClick={onGoToLanding}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F6F7F8] hover:bg-[#E6E9EC] text-[12px] font-bold text-[#072635] transition cursor-pointer"
+            title="Switch to Landing Page"
+          >
+            <Globe className="w-3.5 h-3.5 text-[#00D9C6]" />
+            <span>Landing Page</span>
+          </button>
+        )}
       </div>
 
       {/* Center Nav Links */}
@@ -189,6 +205,19 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                   onClick={() => setMoreMenuOpen(false)}
                 />
                 <div className="absolute right-0 top-11 w-48 bg-white rounded-xl shadow-xl border border-slate-100 py-1.5 z-30 animate-in fade-in zoom-in-95 text-left">
+                  {onGoToLanding && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onGoToLanding();
+                        setMoreMenuOpen(false);
+                      }}
+                      className="w-full px-3.5 py-2 text-[13px] font-medium text-[#072635] hover:bg-[#F6F7F8] flex items-center gap-2 transition cursor-pointer"
+                    >
+                      <Globe className="w-4 h-4 text-[#00D9C6]" />
+                      <span>Back to Landing Page</span>
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={() => {

@@ -9,8 +9,10 @@ import { PatientProfile } from './components/PatientProfile';
 import { LabResults } from './components/LabResults';
 import { LoadingState } from './components/LoadingState';
 import { ErrorState } from './components/ErrorState';
+import { LandingPage } from './components/LandingPage';
 
 export default function App() {
+  const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>('dashboard');
   const [activeTab, setActiveTab] = useState('patients');
   const [patients, setPatients] = useState<ApiPatient[]>([]);
   const [patient, setPatient] = useState<ApiPatient | null>(null);
@@ -35,13 +37,25 @@ export default function App() {
     loadPatientData();
   }, []);
 
+  if (currentView === 'landing') {
+    return (
+      <LandingPage
+        onEnterDashboard={() => setCurrentView('dashboard')}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#F6F7F8] p-3 sm:p-5 lg:p-7 select-text">
       {/* Maximum width container matching 1600px standard XD dashboard layout */}
       <div className="max-w-[1600px] mx-auto flex flex-col">
         
         {/* Top Navigation Bar */}
-        <Header activeTab={activeTab} setActiveTab={setActiveTab} />
+        <Header
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          onGoToLanding={() => setCurrentView('landing')}
+        />
 
         {/* Dynamic Loading State */}
         {loading && <LoadingState />}
