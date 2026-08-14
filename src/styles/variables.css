@@ -1,0 +1,26 @@
+:root {
+  /* Tech.Care Color System according to PRD */
+  --primary-teal: #00D9C6;
+  --primary-teal-dark: #01F0D0;
+  --dark-text: #1F3442;
+  --navy-text: #072635;
+  --secondary-text: #6B7C86;
+  --muted-text: #707070;
+  
+  --page-bg: #F6F7F8;
+  --card-bg: #FFFFFF;
+  --card-border: #E6E9EC;
+  
+  --chart-bg: #F2ECFF;
+  --chart-grid: #DDD6EE;
+  --chart-systolic: #E85CB7;
+  --chart-diastolic: #8066D9;
+  
+  --respiratory-card-bg: #DDF4FC;
+  --temperature-card-bg: #FFE3E8;
+  --heart-rate-card-bg: #FCE4F0;
+  
+  --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --radius-card: 16px;
+  --radius-pill: 70px;
+}

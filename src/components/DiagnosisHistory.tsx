@@ -1,91 +1,56 @@
-import React, { useState } from 'react';
-import { Patient } from '../types';
+import React from 'react';
+import { DiagnosisHistoryItem } from '../types';
+import { BloodPressureChart } from './BloodPressureChart';
+import { VitalCard } from './VitalCard';
 import { RespiratoryIcon, TemperatureIcon, HeartRateIcon } from './Icons';
 import { ChevronDown, ArrowUp, ArrowDown } from 'lucide-react';
 
 interface DiagnosisHistoryProps {
-  patient: Patient;
+  diagnosisHistory: DiagnosisHistoryItem[];
 }
 
-export const DiagnosisHistory: React.FC<DiagnosisHistoryProps> = ({ patient }) => {
-  const [timeRange, setTimeRange] = useState('Last 6 months');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [hoveredPoint, setHoveredPoint] = useState<number | null>(null);
-
-  const history = patient.bloodPressureHistory || [];
-
-  // Chart coordinate mapping
-  // Y range: 60 to 180 (span: 120)
-  const chartHeight = 190;
-  const chartWidth = 440;
-  const paddingLeft = 36;
-  const paddingRight = 20;
-  const paddingTop = 20;
-  const paddingBottom = 30;
-
-  const innerWidth = chartWidth - paddingLeft - paddingRight;
-  const innerHeight = chartHeight - paddingTop - paddingBottom;
-
-  const yMin = 60;
-  const yMax = 180;
-
-  const getYCoord = (val: number) => {
-    const clamped = Math.max(yMin, Math.min(yMax, val));
-    const ratio = (clamped - yMin) / (yMax - yMin);
-    return paddingTop + innerHeight - ratio * innerHeight;
+export const DiagnosisHistory: React.FC<DiagnosisHistoryProps> = ({
+  diagnosisHistory = [],
+}) => {
+  // Most recent record (e.g. March 2024)
+  const latest = diagnosisHistory[diagnosisHistory.length - 1] || {
+    month: 'March',
+    year: 2024,
+    blood_pressure: {
+      systolic: { value: 160, levels: 'Higher than Average' },
+      diastolic: { value: 78, levels: 'Lower than Average' },
+    },
+    respiratory_rate: { value: 20, levels: 'Normal' },
+    temperature: { value: 98.6, levels: 'Normal' },
+    heart_rate: { value: 78, levels: 'Lower than Average' },
   };
 
-  const getXCoord = (index: number) => {
-    if (history.length <= 1) return paddingLeft + innerWidth / 2;
-    return paddingLeft + (index / (history.length - 1)) * innerWidth;
-  };
+  const systolicValue = latest.blood_pressure?.systolic?.value ?? 160;
+  const systolicLevel = latest.blood_pressure?.systolic?.levels ?? 'Higher than Average';
+  const diastolicValue = latest.blood_pressure?.diastolic?.value ?? 78;
+  const diastolicLevel = latest.blood_pressure?.diastolic?.levels ?? 'Lower than Average';
 
-  // Helper for generating smooth cubic bezier path
-  const getSmoothPath = (points: { x: number; y: number }[]) => {
-    if (points.length === 0) return '';
-    if (points.length === 1) return `M ${points[0].x} ${points[0].y}`;
+  const isSystolicHigher = systolicLevel.toLowerCase().includes('higher');
+  const isSystolicLower = systolicLevel.toLowerCase().includes('lower');
+  const isDiastolicLower = diastolicLevel.toLowerCase().includes('lower');
+  const isDiastolicHigher = diastolicLevel.toLowerCase().includes('higher');
 
-    let path = `M ${points[0].x} ${points[0].y}`;
-    for (let i = 0; i < points.length - 1; i++) {
-      const p0 = points[i === 0 ? 0 : i - 1];
-      const p1 = points[i];
-      const p2 = points[i + 1];
-      const p3 = points[i + 2] || p2;
+  const respiratoryValue = latest.respiratory_rate?.value ?? 20;
+  const respiratoryLevel = latest.respiratory_rate?.levels ?? 'Normal';
 
-      const cp1x = p1.x + (p2.x - p0.x) / 6;
-      const cp1y = p1.y + (p2.y - p0.y) / 6;
+  const tempValue = latest.temperature?.value ?? 98.6;
+  const tempLevel = latest.temperature?.levels ?? 'Normal';
 
-      const cp2x = p2.x - (p3.x - p1.x) / 6;
-      const cp2y = p2.y - (p3.y - p1.y) / 6;
-
-      path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
-    }
-    return path;
-  };
-
-  const systolicPoints = history.map((pt, idx) => ({
-    x: getXCoord(idx),
-    y: getYCoord(pt.systolic),
-    val: pt.systolic,
-    month: pt.month,
-    year: pt.year,
-  }));
-
-  const diastolicPoints = history.map((pt, idx) => ({
-    x: getXCoord(idx),
-    y: getYCoord(pt.diastolic),
-    val: pt.diastolic,
-    month: pt.month,
-    year: pt.year,
-  }));
-
-  const systolicPath = getSmoothPath(systolicPoints);
-  const diastolicPath = getSmoothPath(diastolicPoints);
-
-  const yTicks = [180, 160, 140, 120, 100, 80, 60];
+  const heartRateValue = latest.heart_rate?.value ?? 78;
+  const heartRateLevel = latest.heart_rate?.levels ?? 'Lower than Average';
+  const heartRateTrend = heartRateLevel.toLowerCase().includes('lower')
+    ? 'lower'
+    : heartRateLevel.toLowerCase().includes('higher')
+    ? 'higher'
+    : 'normal';
 
   return (
-    <div className="w-full bg-white rounded-[16px] p-5 shadow-xs">
+    <section className="w-full bg-white rounded-[16px] p-5 shadow-xs">
       {/* Section Heading */}
       <h2 className="text-[24px] font-extrabold text-[#072635] mb-6 tracking-tight">
         Diagnosis History
@@ -93,223 +58,45 @@ export const DiagnosisHistory: React.FC<DiagnosisHistoryProps> = ({ patient }) =
 
       {/* Blood Pressure Card */}
       <div className="bg-[#F4F0FE] rounded-[12px] p-4 lg:p-5">
-        <div className="flex flex-col lg:flex-row gap-6 justify-between">
+        <div className="flex flex-col lg:flex-row gap-5 justify-between">
           
           {/* Left: Chart Container */}
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             {/* Header of chart */}
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <h3 className="text-[18px] font-bold text-[#072635]">
                 Blood Pressure
               </h3>
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 text-[12px] font-medium text-[#072635] hover:opacity-80 transition cursor-pointer"
-                >
-                  <span>{timeRange}</span>
-                  <ChevronDown className="w-3.5 h-3.5 text-[#072635]" />
-                </button>
-                {dropdownOpen && (
-                  <div className="absolute right-0 mt-1.5 w-36 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-20 text-xs text-[#072635]">
-                    {['Last 3 months', 'Last 6 months', 'Last 1 year'].map((option) => (
-                      <button
-                        key={option}
-                        onClick={() => {
-                          setTimeRange(option);
-                          setDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2 hover:bg-[#F4F0FE] transition ${
-                          timeRange === option ? 'font-bold text-[#8C6FE6]' : ''
-                        }`}
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                )}
+              <div className="flex items-center gap-2 text-[12px] font-medium text-[#072635] select-none">
+                <span>Last 6 months</span>
+                <ChevronDown className="w-3.5 h-3.5 text-[#072635]" />
               </div>
             </div>
 
-            {/* SVG Chart */}
-            <div className="relative w-full overflow-x-auto">
-              <svg
-                viewBox={`0 0 ${chartWidth} ${chartHeight}`}
-                className="w-full h-auto min-w-[340px] max-w-full overflow-visible"
-              >
-                {/* Horizontal Grid lines & Y-axis labels */}
-                {yTicks.map((tick) => {
-                  const y = getYCoord(tick);
-                  return (
-                    <g key={tick}>
-                      <text
-                        x="24"
-                        y={y + 3.5}
-                        textAnchor="end"
-                        fill="#707070"
-                        fontSize="10"
-                        fontFamily="Manrope, sans-serif"
-                        fontWeight="500"
-                      >
-                        {tick}
-                      </text>
-                      <line
-                        x1={paddingLeft}
-                        y1={y}
-                        x2={chartWidth - paddingRight}
-                        y2={y}
-                        stroke="#CBC8D4"
-                        strokeWidth="1"
-                        strokeOpacity="0.6"
-                      />
-                    </g>
-                  );
-                })}
-
-                {/* X-axis labels */}
-                {history.map((pt, idx) => {
-                  const x = getXCoord(idx);
-                  return (
-                    <text
-                      key={idx}
-                      x={x}
-                      y={chartHeight - 8}
-                      textAnchor="middle"
-                      fill="#707070"
-                      fontSize="10"
-                      fontFamily="Manrope, sans-serif"
-                      fontWeight="500"
-                    >
-                      {pt.month}, {pt.year}
-                    </text>
-                  );
-                })}
-
-                {/* Systolic Line (Pink) */}
-                <path
-                  d={systolicPath}
-                  fill="none"
-                  stroke="#E66FD2"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-
-                {/* Diastolic Line (Purple) */}
-                <path
-                  d={diastolicPath}
-                  fill="none"
-                  stroke="#8C6FE6"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-
-                {/* Systolic Dots */}
-                {systolicPoints.map((pt, idx) => (
-                  <g
-                    key={`sys-${idx}`}
-                    className="cursor-pointer"
-                    onMouseEnter={() => setHoveredPoint(idx)}
-                    onMouseLeave={() => setHoveredPoint(null)}
-                  >
-                    <circle
-                      cx={pt.x}
-                      cy={pt.y}
-                      r={hoveredPoint === idx ? 6.5 : 5}
-                      fill="#E66FD2"
-                      stroke="#F4F0FE"
-                      strokeWidth="2"
-                      className="transition-all"
-                    />
-                  </g>
-                ))}
-
-                {/* Diastolic Dots */}
-                {diastolicPoints.map((pt, idx) => (
-                  <g
-                    key={`dia-${idx}`}
-                    className="cursor-pointer"
-                    onMouseEnter={() => setHoveredPoint(idx)}
-                    onMouseLeave={() => setHoveredPoint(null)}
-                  >
-                    <circle
-                      cx={pt.x}
-                      cy={pt.y}
-                      r={hoveredPoint === idx ? 6.5 : 5}
-                      fill="#8C6FE6"
-                      stroke="#F4F0FE"
-                      strokeWidth="2"
-                      className="transition-all"
-                    />
-                  </g>
-                ))}
-
-                {/* Hover Tooltip in SVG */}
-                {hoveredPoint !== null && (
-                  <g transform={`translate(${getXCoord(hoveredPoint)}, 25)`}>
-                    <rect
-                      x="-55"
-                      y="-18"
-                      width="110"
-                      height="38"
-                      rx="6"
-                      fill="#072635"
-                      opacity="0.9"
-                    />
-                    <text
-                      x="0"
-                      y="-4"
-                      textAnchor="middle"
-                      fill="#FFFFFF"
-                      fontSize="9"
-                      fontWeight="bold"
-                    >
-                      {history[hoveredPoint].month} {history[hoveredPoint].year}
-                    </text>
-                    <text
-                      x="0"
-                      y="11"
-                      textAnchor="middle"
-                      fill="#01F0D0"
-                      fontSize="10"
-                      fontWeight="bold"
-                    >
-                      {history[hoveredPoint].systolic} / {history[hoveredPoint].diastolic} mmHg
-                    </text>
-                  </g>
-                )}
-              </svg>
-            </div>
+            {/* Chart.js Component */}
+            <BloodPressureChart diagnosisHistory={diagnosisHistory} />
           </div>
 
           {/* Right: Stats Indicators */}
-          <div className="w-full lg:w-[170px] flex flex-row lg:flex-col justify-around lg:justify-center border-t lg:border-t-0 lg:border-l border-[#CBC8D4]/50 pt-3 lg:pt-0 lg:pl-5">
+          <div className="w-full lg:w-[175px] flex flex-row lg:flex-col justify-around lg:justify-center border-t lg:border-t-0 lg:border-l border-[#CBC8D4]/60 pt-3 lg:pt-0 lg:pl-5">
             
             {/* Systolic Stat */}
             <div className="flex flex-col">
               <div className="flex items-center gap-2 mb-1">
-                <span className="w-3.5 h-3.5 rounded-full bg-[#E66FD2] inline-block shadow-2xs" />
+                <span className="w-3.5 h-3.5 rounded-full bg-[#E85CB7] inline-block shadow-2xs" />
                 <span className="text-[14px] font-bold text-[#072635]">Systolic</span>
               </div>
               <div className="text-[22px] font-extrabold text-[#072635] tracking-tight mb-1">
-                {patient.systolicStat.value}
+                {systolicValue}
               </div>
               <div className="flex items-center gap-1.5 text-[12px] text-[#072635] font-medium">
-                {patient.systolicStat.trend === 'higher' ? (
-                  <>
-                    <ArrowUp className="w-3 h-3 text-[#072635] stroke-[3]" />
-                    <span>Higher than Average</span>
-                  </>
-                ) : patient.systolicStat.trend === 'lower' ? (
-                  <>
-                    <ArrowDown className="w-3 h-3 text-[#072635] stroke-[3]" />
-                    <span>Lower than Average</span>
-                  </>
-                ) : (
-                  <span>Normal</span>
+                {isSystolicHigher && (
+                  <ArrowUp className="w-3 h-3 text-[#072635] stroke-[3]" />
                 )}
+                {isSystolicLower && (
+                  <ArrowDown className="w-3 h-3 text-[#072635] stroke-[3]" />
+                )}
+                <span>{systolicLevel}</span>
               </div>
             </div>
 
@@ -319,26 +106,20 @@ export const DiagnosisHistory: React.FC<DiagnosisHistoryProps> = ({ patient }) =
             {/* Diastolic Stat */}
             <div className="flex flex-col">
               <div className="flex items-center gap-2 mb-1">
-                <span className="w-3.5 h-3.5 rounded-full bg-[#8C6FE6] inline-block shadow-2xs" />
+                <span className="w-3.5 h-3.5 rounded-full bg-[#8066D9] inline-block shadow-2xs" />
                 <span className="text-[14px] font-bold text-[#072635]">Diastolic</span>
               </div>
               <div className="text-[22px] font-extrabold text-[#072635] tracking-tight mb-1">
-                {patient.diastolicStat.value}
+                {diastolicValue}
               </div>
               <div className="flex items-center gap-1.5 text-[12px] text-[#072635] font-medium">
-                {patient.diastolicStat.trend === 'lower' ? (
-                  <>
-                    <ArrowDown className="w-3 h-3 text-[#072635] stroke-[3]" />
-                    <span>Lower than Average</span>
-                  </>
-                ) : patient.diastolicStat.trend === 'higher' ? (
-                  <>
-                    <ArrowUp className="w-3 h-3 text-[#072635] stroke-[3]" />
-                    <span>Higher than Average</span>
-                  </>
-                ) : (
-                  <span>Normal</span>
+                {isDiastolicLower && (
+                  <ArrowDown className="w-3 h-3 text-[#072635] stroke-[3]" />
                 )}
+                {isDiastolicHigher && (
+                  <ArrowUp className="w-3 h-3 text-[#072635] stroke-[3]" />
+                )}
+                <span>{diastolicLevel}</span>
               </div>
             </div>
 
@@ -349,63 +130,35 @@ export const DiagnosisHistory: React.FC<DiagnosisHistoryProps> = ({ patient }) =
 
       {/* 3 Metric Cards Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
-        
-        {/* 1. Respiratory Rate */}
-        <div className="bg-[#E0F3FA] rounded-[12px] p-4 flex flex-col justify-between">
-          <RespiratoryIcon className="w-20 h-20 mb-3" />
-          <div>
-            <span className="text-[16px] font-medium text-[#072635] block">
-              Respiratory Rate
-            </span>
-            <span className="text-[30px] font-extrabold text-[#072635] tracking-tight my-1 block">
-              {patient.respiratoryRate.value}
-            </span>
-            <span className="text-[14px] text-[#072635] font-normal block">
-              {patient.respiratoryRate.status}
-            </span>
-          </div>
-        </div>
+        <VitalCard
+          icon={<RespiratoryIcon className="w-20 h-20" />}
+          bgColor="#DDF4FC"
+          title="Respiratory Rate"
+          value={respiratoryValue}
+          unit="bpm"
+          levels={respiratoryLevel}
+        />
 
-        {/* 2. Temperature */}
-        <div className="bg-[#FFE6E9] rounded-[12px] p-4 flex flex-col justify-between">
-          <TemperatureIcon className="w-20 h-20 mb-3" />
-          <div>
-            <span className="text-[16px] font-medium text-[#072635] block">
-              Temperature
-            </span>
-            <span className="text-[30px] font-extrabold text-[#072635] tracking-tight my-1 block">
-              {patient.temperature.value}
-            </span>
-            <span className="text-[14px] text-[#072635] font-normal block">
-              {patient.temperature.status}
-            </span>
-          </div>
-        </div>
+        <VitalCard
+          icon={<TemperatureIcon className="w-20 h-20" />}
+          bgColor="#FFE3E8"
+          title="Temperature"
+          value={tempValue}
+          unit="°F"
+          levels={tempLevel}
+        />
 
-        {/* 3. Heart Rate */}
-        <div className="bg-[#FFE6F1] rounded-[12px] p-4 flex flex-col justify-between">
-          <HeartRateIcon className="w-20 h-20 mb-3" />
-          <div>
-            <span className="text-[16px] font-medium text-[#072635] block">
-              Heart Rate
-            </span>
-            <span className="text-[30px] font-extrabold text-[#072635] tracking-tight my-1 block">
-              {patient.heartRate.value}
-            </span>
-            <div className="flex items-center gap-1.5 text-[14px] text-[#072635] font-normal">
-              {patient.heartRate.trend === 'lower' && (
-                <ArrowDown className="w-3.5 h-3.5 text-[#072635] stroke-[3]" />
-              )}
-              {patient.heartRate.trend === 'higher' && (
-                <ArrowUp className="w-3.5 h-3.5 text-[#072635] stroke-[3]" />
-              )}
-              <span>{patient.heartRate.status}</span>
-            </div>
-          </div>
-        </div>
-
+        <VitalCard
+          icon={<HeartRateIcon className="w-20 h-20" />}
+          bgColor="#FCE4F0"
+          title="Heart Rate"
+          value={heartRateValue}
+          unit="bpm"
+          levels={heartRateLevel}
+          trend={heartRateTrend}
+        />
       </div>
 
-    </div>
+    </section>
   );
 };

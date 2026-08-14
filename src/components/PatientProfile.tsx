@@ -1,23 +1,36 @@
 import React from 'react';
-import { Patient } from '../types';
+import { ApiPatient } from '../types';
 import { ProfileInfoIcon } from './Icons';
 
 interface PatientProfileProps {
-  patient: Patient;
-  onShowAllInfo: () => void;
+  patient: ApiPatient;
 }
 
-export const PatientProfile: React.FC<PatientProfileProps> = ({
-  patient,
-  onShowAllInfo,
-}) => {
+// Helper to format date string into "August 23, 1996"
+function formatBirthDate(dobString: string): string {
+  if (!dobString) return '';
+  if (dobString.includes(',')) return dobString; // already formatted
+  const parsed = new Date(dobString);
+  if (!isNaN(parsed.getTime())) {
+    return parsed.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  }
+  return dobString;
+}
+
+export const PatientProfile: React.FC<PatientProfileProps> = ({ patient }) => {
+  const formattedDob = formatBirthDate(patient.date_of_birth);
+
   return (
-    <div className="w-full bg-white rounded-[16px] p-6 shadow-xs flex flex-col items-center text-center">
+    <aside className="w-full bg-white rounded-[16px] p-6 shadow-xs flex flex-col items-center text-center">
       {/* Patient Avatar Frame */}
       <div className="relative mt-2">
         <div className="w-[180px] h-[180px] sm:w-[200px] sm:h-[200px] rounded-full p-1 bg-gradient-to-b from-[#E0F3FA] to-[#D8FCF7] flex items-center justify-center shadow-xs">
           <img
-            src={patient.avatar}
+            src={patient.profile_picture}
             alt={patient.name}
             className="w-full h-full rounded-full object-cover shadow-inner"
             referrerPolicy="no-referrer"
@@ -41,7 +54,7 @@ export const PatientProfile: React.FC<PatientProfileProps> = ({
               Date Of Birth
             </span>
             <span className="text-[14px] font-bold text-[#072635]">
-              {patient.dateOfBirth}
+              {formattedDob}
             </span>
           </div>
         </div>
@@ -67,7 +80,7 @@ export const PatientProfile: React.FC<PatientProfileProps> = ({
               Contact Info.
             </span>
             <span className="text-[14px] font-bold text-[#072635]">
-              {patient.phoneNumber}
+              {patient.phone_number}
             </span>
           </div>
         </div>
@@ -80,7 +93,7 @@ export const PatientProfile: React.FC<PatientProfileProps> = ({
               Emergency Contacts
             </span>
             <span className="text-[14px] font-bold text-[#072635]">
-              {patient.emergencyContact}
+              {patient.emergency_contact}
             </span>
           </div>
         </div>
@@ -93,7 +106,7 @@ export const PatientProfile: React.FC<PatientProfileProps> = ({
               Insurance Provider
             </span>
             <span className="text-[14px] font-bold text-[#072635]">
-              {patient.insuranceProvider}
+              {patient.insurance_type}
             </span>
           </div>
         </div>
@@ -103,11 +116,10 @@ export const PatientProfile: React.FC<PatientProfileProps> = ({
       {/* Action Button */}
       <button
         type="button"
-        onClick={onShowAllInfo}
         className="w-full mt-8 py-3.5 px-6 rounded-full bg-[#01F0D0] hover:bg-[#00d8bc] active:scale-[0.99] transition-all font-bold text-[14px] text-[#072635] text-center shadow-xs cursor-pointer select-none"
       >
         Show All Information
       </button>
-    </div>
+    </aside>
   );
 };

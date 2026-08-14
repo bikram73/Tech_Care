@@ -1,0 +1,13 @@
+/* Responsive Utility Rules for Tech.Care Dashboard */
+
+@media (max-width: 1200px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 0.75rem;
+  }
+}

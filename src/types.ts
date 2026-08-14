@@ -1,55 +1,38 @@
-export interface BloodPressurePoint {
+export interface VitalEntry {
+  value: number | string;
+  levels: string;
+}
+
+export interface BloodPressureEntry {
+  systolic: VitalEntry;
+  diastolic: VitalEntry;
+}
+
+export interface DiagnosisHistoryItem {
   month: string;
   year: number;
-  systolic: number;
-  diastolic: number;
+  blood_pressure: BloodPressureEntry;
+  respiratory_rate: VitalEntry;
+  temperature: VitalEntry;
+  heart_rate: VitalEntry;
 }
 
-export interface VitalMetric {
-  value: string;
-  unit?: string;
-  status: string;
-  trend?: 'higher' | 'lower' | 'normal';
-}
-
-export interface DiagnosisItem {
-  id: string;
+export interface DiagnosticListItem {
   name: string;
   description: string;
-  status: 'Under Observation' | 'Cured' | 'Inactive' | 'Untreated';
+  status: string;
 }
 
-export interface LabResultItem {
-  id: string;
+export interface ApiPatient {
   name: string;
-  date?: string;
-  fileSize?: string;
-}
-
-export interface Patient {
-  id: string;
-  name: string;
-  gender: 'Female' | 'Male' | 'Other';
+  gender: string;
   age: number;
-  avatar: string;
-  dateOfBirth: string;
-  phoneNumber: string;
-  emergencyContact: string;
-  insuranceProvider: string;
-  bloodPressureHistory: BloodPressurePoint[];
-  systolicStat: {
-    value: number;
-    status: string;
-    trend: 'higher' | 'lower' | 'normal';
-  };
-  diastolicStat: {
-    value: number;
-    status: string;
-    trend: 'higher' | 'lower' | 'normal';
-  };
-  respiratoryRate: VitalMetric;
-  temperature: VitalMetric;
-  heartRate: VitalMetric;
-  diagnosticList: DiagnosisItem[];
-  labResults: LabResultItem[];
+  profile_picture: string;
+  date_of_birth: string;
+  phone_number: string;
+  emergency_contact: string;
+  insurance_type: string;
+  diagnosis_history: DiagnosisHistoryItem[];
+  diagnostic_list: DiagnosticListItem[];
+  lab_results: string[];
 }

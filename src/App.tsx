@@ -1,66 +1,94 @@
-import React, { useState } from 'react';
-import { PATIENTS } from './data/patientsData';
-import { Patient } from './types';
+import React, { useState, useEffect } from 'react';
+import { ApiPatient } from './types';
+import { fetchPatientsData } from './services/patientApi';
 import { Header } from './components/Header';
-import { PatientsSidebar } from './components/PatientsSidebar';
+import { PatientSidebar } from './components/PatientSidebar';
 import { DiagnosisHistory } from './components/DiagnosisHistory';
 import { DiagnosticList } from './components/DiagnosticList';
 import { PatientProfile } from './components/PatientProfile';
 import { LabResults } from './components/LabResults';
-import { PatientDetailModal } from './components/PatientDetailModal';
+import { LoadingState } from './components/LoadingState';
+import { ErrorState } from './components/ErrorState';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('patients');
-  // Default selected patient is Jessica Taylor (matching mock screen)
-  const defaultPatient = PATIENTS.find((p) => p.id === 'jessica-taylor') || PATIENTS[0];
-  const [selectedPatient, setSelectedPatient] = useState<Patient>(defaultPatient);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [patients, setPatients] = useState<ApiPatient[]>([]);
+  const [targetPatient, setTargetPatient] = useState<ApiPatient | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const loadData = async () => {
+    try {
+      setIsLoading(true);
+      setErrorMessage(null);
+      const data = await fetchPatientsData();
+      setPatients(data);
+
+      // Specifically find Jessica Taylor per PRD specification
+      const jessica =
+        data.find((p) => p.name.toLowerCase() === 'jessica taylor') ||
+        data[0] ||
+        null;
+      setTargetPatient(jessica);
+    } catch (err: any) {
+      setErrorMessage(err.message || 'Failed to fetch patient data from Coalition API');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#F6F7F8] p-3 sm:p-5 lg:p-7 select-text">
-      {/* Maximum width container matching the 1600px design */}
+      {/* Maximum width container matching 1600px standard XD dashboard layout */}
       <div className="max-w-[1600px] mx-auto flex flex-col">
         
-        {/* Top Navbar */}
+        {/* Top Navigation Bar */}
         <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
-        {/* Main 3-Column Layout */}
-        <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-          
-          {/* Left Column: Patients Sidebar (approx 3 / 12) */}
-          <div className="lg:col-span-3">
-            <PatientsSidebar
-              patients={PATIENTS}
-              selectedPatientId={selectedPatient.id}
-              onSelectPatient={(patient) => setSelectedPatient(patient)}
-            />
-          </div>
+        {/* Dynamic Loading State */}
+        {isLoading && <LoadingState />}
 
-          {/* Middle Column: Diagnosis History & Diagnostic List (approx 6 / 12) */}
-          <div className="lg:col-span-6 flex flex-col">
-            <DiagnosisHistory patient={selectedPatient} />
-            <DiagnosticList diagnosticList={selectedPatient.diagnosticList} />
-          </div>
+        {/* Dynamic Error State */}
+        {!isLoading && errorMessage && (
+          <ErrorState message={errorMessage} onRetry={loadData} />
+        )}
 
-          {/* Right Column: Patient Profile & Lab Results (approx 3 / 12) */}
-          <div className="lg:col-span-3 flex flex-col">
-            <PatientProfile
-              patient={selectedPatient}
-              onShowAllInfo={() => setIsModalOpen(true)}
-            />
-            <LabResults labResults={selectedPatient.labResults} />
-          </div>
+        {/* Main Dashboard Grid */}
+        {!isLoading && !errorMessage && targetPatient && (
+          <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+            
+            {/* Left Column: Patients Sidebar */}
+            <div className="lg:col-span-3">
+              <PatientSidebar
+                patients={patients}
+                targetPatientName={targetPatient.name}
+              />
+            </div>
 
-        </main>
+            {/* Middle Column: Diagnosis History & Diagnostic List */}
+            <div className="lg:col-span-6 flex flex-col">
+              <DiagnosisHistory
+                diagnosisHistory={targetPatient.diagnosis_history}
+              />
+              <DiagnosticList
+                diagnosticList={targetPatient.diagnostic_list}
+              />
+            </div>
+
+            {/* Right Column: Patient Profile & Lab Results */}
+            <div className="lg:col-span-3 flex flex-col">
+              <PatientProfile patient={targetPatient} />
+              <LabResults labResults={targetPatient.lab_results} />
+            </div>
+
+          </main>
+        )}
 
       </div>
-
-      {/* Detail Modal */}
-      <PatientDetailModal
-        patient={selectedPatient}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </div>
   );
 }

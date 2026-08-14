@@ -1,13 +1,13 @@
 import React from 'react';
-import { DiagnosisItem } from '../types';
+import { DiagnosticListItem } from '../types';
 
 interface DiagnosticListProps {
-  diagnosticList: DiagnosisItem[];
+  diagnosticList: DiagnosticListItem[];
 }
 
-export const DiagnosticList: React.FC<DiagnosticListProps> = ({ diagnosticList }) => {
+export const DiagnosticList: React.FC<DiagnosticListProps> = ({ diagnosticList = [] }) => {
   return (
-    <div className="w-full bg-white rounded-[16px] p-5 shadow-xs mt-8">
+    <section className="w-full bg-white rounded-[16px] p-5 shadow-xs mt-8">
       {/* Title */}
       <h2 className="text-[24px] font-extrabold text-[#072635] mb-6 tracking-tight">
         Diagnostic List
@@ -25,9 +25,9 @@ export const DiagnosticList: React.FC<DiagnosticListProps> = ({ diagnosticList }
 
           {/* Table Body */}
           <div className="divide-y divide-[#F6F7F8]">
-            {diagnosticList.map((item) => (
+            {diagnosticList.map((item, index) => (
               <div
-                key={item.id}
+                key={`${item.name}-${index}`}
                 className="py-4 px-4 text-[14px] text-[#072635] grid grid-cols-12 gap-4 items-center hover:bg-[#F6F7F8]/40 transition-colors"
               >
                 <div className="col-span-4 pl-2 font-medium text-[#072635]">
@@ -44,6 +44,6 @@ export const DiagnosticList: React.FC<DiagnosticListProps> = ({ diagnosticList }
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
