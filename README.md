@@ -7,11 +7,17 @@
 ![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Chart.js](https://img.shields.io/badge/Chart.js-4.5-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
-![Netlify Ready](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+[![Netlify Status](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://tech-care-web-app.netlify.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/bikram73/Tech_Care)
 [![License: MIT](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](./LICENSE)
 
 <p align="center">
   A high-precision, responsive single-page medical dashboard engineered to display real-time clinical diagnostic data, biometric telemetry graphs, and patient records for <b>Tech.Care</b> (Coalition Technologies Front-End Developer Skill Assessment).
+</p>
+
+<p align="center">
+  🔗 <b>Live Demo:</b> <a href="https://tech-care-web-app.netlify.app/">https://tech-care-web-app.netlify.app/</a><br/>
+  📂 <b>GitHub Repository:</b> <a href="https://github.com/bikram73/Tech_Care">https://github.com/bikram73/Tech_Care</a>
 </p>
 
 </div>
@@ -154,8 +160,8 @@ npm -v
 
 ### 2. Clone the Repository
 ```bash
-git clone https://github.com/your-username/techcare-patient-dashboard.git
-cd techcare-patient-dashboard
+git clone https://github.com/bikram73/Tech_Care.git
+cd Tech_Care
 ```
 
 ### 3. Install Dependencies
