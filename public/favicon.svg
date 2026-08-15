@@ -1,28 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" width="38" height="38">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 42" width="38" height="42">
   <defs>
-    <linearGradient id="techcare-green" x1="12" y1="1" x2="21" y2="21" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#00D284"/>
-      <stop offset="1" stop-color="#01F0D0"/>
+    <linearGradient id="fav-top-green" x1="11.5" y1="2" x2="21.5" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00D284"/>
+      <stop offset="100%" stop-color="#01F0D0"/>
     </linearGradient>
-    <linearGradient id="techcare-cyan" x1="21" y1="8.5" x2="36" y2="21.5" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#01F0D0"/>
-      <stop offset="1" stop-color="#00D7BD"/>
+    <linearGradient id="fav-right-cyan" x1="21.5" y1="10" x2="35.5" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#01F0D0"/>
+      <stop offset="100%" stop-color="#00D7BD"/>
     </linearGradient>
-    <linearGradient id="techcare-blue" x1="12" y1="21" x2="21" y2="37" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0066CC"/>
-      <stop offset="1" stop-color="#004899"/>
+    <linearGradient id="fav-left-ice" x1="0" y1="16" x2="21.5" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="100%" stop-color="#8AD3F5"/>
+    </linearGradient>
+    <linearGradient id="fav-bottom-blue" x1="11.5" y1="22" x2="21.5" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0066CC"/>
+      <stop offset="100%" stop-color="#00438E"/>
     </linearGradient>
   </defs>
+
+  <!-- Left Ice Blue Wing -->
+  <path d="M0 16.5L11.5 10L21.5 19.5L10 26L0 16.5Z" fill="url(#fav-left-ice)" fill-opacity="0.88"/>
   
   <!-- Top Green Wing -->
-  <path d="M12 1L21 8.5V21H12V1Z" fill="url(#techcare-green)"/>
+  <path d="M11.5 2L21.5 10.5V22H11.5V2Z" fill="url(#fav-top-green)"/>
   
-  <!-- Right Bright Cyan Wing -->
-  <path d="M21 8.5L36 14.5V21.5H21V8.5Z" fill="url(#techcare-cyan)"/>
+  <!-- Right Cyan Wing -->
+  <path d="M21.5 10.5L35.5 18.5L24.5 27.5L21.5 22V10.5Z" fill="url(#fav-right-cyan)"/>
   
-  <!-- Left Translucent Sky Blue Wing -->
-  <path d="M1 14.5L12 11V21.5H1L1 14.5Z" fill="#A2DEF8" fill-opacity="0.9"/>
-  
-  <!-- Bottom Deep Royal Blue Wing -->
-  <path d="M12 21H21V37L12 29.5V21Z" fill="url(#techcare-blue)"/>
+  <!-- Bottom Royal Blue Wing -->
+  <path d="M11.5 22H21.5V31.5L11.5 41V22Z" fill="url(#fav-bottom-blue)"/>
 </svg>
