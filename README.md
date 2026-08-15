@@ -8,6 +8,7 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Chart.js](https://img.shields.io/badge/Chart.js-4.5-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
 ![Netlify Ready](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](./LICENSE)
 
 <p align="center">
   A high-precision, responsive single-page medical dashboard engineered to display real-time clinical diagnostic data, biometric telemetry graphs, and patient records for <b>Tech.Care</b> (Coalition Technologies Front-End Developer Skill Assessment).
@@ -304,11 +305,11 @@ const data = await response.json();
 <a id="license"></a>
 ## 📄 License & Attribution
 
-This project is created for the **Coalition Technologies Front-End Developer Skill Assessment**.
+This project is open-source and available under the terms of the **[MIT License](./LICENSE)**.
 
 - **Design Specification**: Coalition Technologies / Adobe XD
 - **Developed By**: Front-End Engineering Assessment Candidate
-- **License**: MIT License — free for evaluation, learning, and assessment review.
+- **License**: [![MIT License](https://img.shields.io/badge/License-MIT-F59E0B.svg?style=flat-square)](./LICENSE) — see the full **[LICENSE](./LICENSE)** file for legal permissions and terms.
 
 ---
 
