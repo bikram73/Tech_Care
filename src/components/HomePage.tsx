@@ -45,11 +45,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnterDashboard }) => {
             <button
               type="button"
               onClick={onEnterDashboard}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#01F0D0] hover:bg-[#00d8bc] text-[#072635] text-[14px] font-bold shadow-xs transition transform active:scale-98 cursor-pointer"
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-full bg-[#01F0D0] hover:bg-[#00d8bc] text-[#072635] text-[12px] sm:text-[14px] font-bold shadow-xs transition transform active:scale-98 cursor-pointer whitespace-nowrap"
             >
-              <LayoutDashboard className="w-4 h-4" />
-              <span>Launch Dashboard</span>
-              <ArrowRight className="w-4 h-4" />
+              <LayoutDashboard className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Dashboard</span>
+              <ArrowRight className="hidden sm:inline-block w-4 h-4" />
             </button>
           </div>
         </div>
