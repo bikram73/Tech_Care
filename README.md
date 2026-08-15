@@ -313,7 +313,3 @@ This project is open-source and available under the terms of the **[MIT License]
 - **License**: [![MIT License](https://img.shields.io/badge/License-MIT-F59E0B.svg?style=flat-square)](./LICENSE) — see the full **[LICENSE](./LICENSE)** file for legal permissions and terms.
 
 ---
-
-<div align="center">
-  <sub>Built with ❤️ using React 19, TypeScript, Vite & Tailwind CSS.</sub>
-</div>
