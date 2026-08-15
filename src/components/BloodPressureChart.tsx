@@ -83,24 +83,39 @@ export const BloodPressureChart: React.FC<BloodPressureChartProps> = ({
   const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
     plugins: {
       legend: {
         display: false,
       },
       tooltip: {
         backgroundColor: '#072635',
+        titleColor: '#FFFFFF',
+        bodyColor: '#FFFFFF',
         titleFont: {
           family: 'Manrope, sans-serif',
-          size: 11,
+          size: 12,
           weight: 'bold',
         },
         bodyFont: {
           family: 'Manrope, sans-serif',
           size: 11,
+          weight: 500,
         },
-        padding: 8,
-        cornerRadius: 6,
+        padding: 10,
+        cornerRadius: 8,
         displayColors: true,
+        boxWidth: 8,
+        boxHeight: 8,
+        boxPadding: 4,
+        callbacks: {
+          label: (context) => {
+            return ` ${context.dataset.label}: ${context.parsed.y} mmHg`;
+          },
+        },
       },
     },
     scales: {
