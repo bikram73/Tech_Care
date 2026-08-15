@@ -92,7 +92,7 @@ export default function App() {
             {/* Right Column: Patient Profile & Lab Results */}
             <div className="lg:col-span-3 flex flex-col">
               <PatientProfile patient={patient} />
-              <LabResults labResults={patient.lab_results} />
+              <LabResults labResults={patient.lab_results} patientName={patient.name} />
             </div>
 
           </main>
