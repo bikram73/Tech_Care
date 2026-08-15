@@ -10,6 +10,7 @@ import { LabResults } from './components/LabResults';
 import { LoadingState } from './components/LoadingState';
 import { ErrorState } from './components/ErrorState';
 import { HomePage } from './components/HomePage';
+import { Footer } from './components/Footer';
 
 export default function App() {
   // Default to 'home' view every time the user visits/lands in the application
@@ -97,6 +98,12 @@ export default function App() {
 
           </main>
         )}
+
+        {/* Dashboard Footer */}
+        <Footer
+          isDashboard={true}
+          onGoToHome={() => setCurrentView('home')}
+        />
 
       </div>
     </div>
