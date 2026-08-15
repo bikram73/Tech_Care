@@ -15,11 +15,6 @@
   A high-precision, responsive single-page medical dashboard engineered to display real-time clinical diagnostic data, biometric telemetry graphs, and patient records for <b>Tech.Care</b> (Coalition Technologies Front-End Developer Skill Assessment).
 </p>
 
-<p align="center">
-  🔗 <b>Live Demo:</b> <a href="https://tech-care-web-app.netlify.app/">https://tech-care-web-app.netlify.app/</a><br/>
-  📂 <b>GitHub Repository:</b> <a href="https://github.com/bikram73/Tech_Care">https://github.com/bikram73/Tech_Care</a>
-</p>
-
 </div>
 
 ---
