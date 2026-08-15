@@ -49,23 +49,11 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onGoToH
         </div>
       )}
 
-      {/* Brand Logo & Home Switcher */}
-      <div className="flex items-center gap-4">
+      {/* Brand Logo */}
+      <div className="flex items-center">
         <div className="flex items-center cursor-pointer" onClick={onGoToHome || (() => setActiveTab('patients'))}>
           <TechCareLogo />
         </div>
-
-        {onGoToHome && (
-          <button
-            type="button"
-            onClick={onGoToHome}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F6F7F8] hover:bg-[#E6E9EC] text-[12px] font-bold text-[#072635] transition cursor-pointer"
-            title="Return to Home Page"
-          >
-            <Home className="w-3.5 h-3.5 text-[#00D9C6]" />
-            <span>Home Page</span>
-          </button>
-        )}
       </div>
 
       {/* Center Nav Links */}
