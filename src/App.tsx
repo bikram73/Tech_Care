@@ -9,10 +9,11 @@ import { PatientProfile } from './components/PatientProfile';
 import { LabResults } from './components/LabResults';
 import { LoadingState } from './components/LoadingState';
 import { ErrorState } from './components/ErrorState';
-import { LandingPage } from './components/LandingPage';
+import { HomePage } from './components/HomePage';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>('dashboard');
+  // Default to 'home' view every time the user visits/lands in the application
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard'>('home');
   const [activeTab, setActiveTab] = useState('patients');
   const [patients, setPatients] = useState<ApiPatient[]>([]);
   const [patient, setPatient] = useState<ApiPatient | null>(null);
@@ -37,9 +38,9 @@ export default function App() {
     loadPatientData();
   }, []);
 
-  if (currentView === 'landing') {
+  if (currentView === 'home') {
     return (
-      <LandingPage
+      <HomePage
         onEnterDashboard={() => setCurrentView('dashboard')}
       />
     );
@@ -54,7 +55,7 @@ export default function App() {
         <Header
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          onGoToLanding={() => setCurrentView('landing')}
+          onGoToHome={() => setCurrentView('home')}
         />
 
         {/* Dynamic Loading State */}

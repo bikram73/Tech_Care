@@ -13,13 +13,15 @@ import {
   Stethoscope,
   ChevronRight,
   HeartPulse,
+  LayoutDashboard,
+  Home,
 } from 'lucide-react';
 
-interface LandingPageProps {
+interface HomePageProps {
   onEnterDashboard: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) => {
+export const HomePage: React.FC<HomePageProps> = ({ onEnterDashboard }) => {
   return (
     <div className="min-h-screen bg-[#F6F7F8] text-[#072635] selection:bg-[#00D9C6]/20">
       
@@ -31,7 +33,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) =>
           </div>
 
           <nav className="hidden md:flex items-center gap-8 text-[14px] font-semibold text-[#072635]">
-            <a href="#features" className="hover:text-[#00D9C6] transition">Features</a>
+            <a href="#features" className="hover:text-[#00D9C6] transition flex items-center gap-1.5">
+              <span>Features</span>
+            </a>
             <a href="#monitoring" className="hover:text-[#00D9C6] transition">Vitals & Analytics</a>
             <a href="#records" className="hover:text-[#00D9C6] transition">Clinical Records</a>
             <a href="#about" className="hover:text-[#00D9C6] transition">About Platform</a>
@@ -43,6 +47,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) =>
               onClick={onEnterDashboard}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#01F0D0] hover:bg-[#00d8bc] text-[#072635] text-[14px] font-bold shadow-xs transition transform active:scale-98 cursor-pointer"
             >
+              <LayoutDashboard className="w-4 h-4" />
               <span>Launch Dashboard</span>
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -67,7 +72,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) =>
               </h1>
 
               <p className="text-lg text-[#6B7C86] font-normal leading-relaxed max-w-xl">
-                Tech.Care provides medical practitioners with an unified clinical suite to track vital signs, dynamic blood pressure trends, medical histories, and laboratory records in real time.
+                Tech.Care provides medical practitioners with a unified clinical suite to track vital signs, dynamic blood pressure trends, medical histories, and laboratory records in real time.
               </p>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
@@ -76,7 +81,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) =>
                   onClick={onEnterDashboard}
                   className="px-8 py-4 rounded-full bg-[#01F0D0] hover:bg-[#00d8bc] text-[#072635] text-[16px] font-extrabold shadow-md flex items-center justify-center gap-3 transition transform active:scale-98 cursor-pointer"
                 >
-                  <span>Open Clinician Portal</span>
+                  <LayoutDashboard className="w-5 h-5" />
+                  <span>Open Clinician Dashboard</span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
 
@@ -301,7 +307,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) =>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-[#E6E9EC] py-8 px-4 sm:px-8 text-center text-xs text-[#707070]">
+      <footer id="about" className="bg-white border-t border-[#E6E9EC] py-8 px-4 sm:px-8 text-center text-xs text-[#707070]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <TechCareLogo />
@@ -311,7 +317,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterDashboard }) =>
             <button
               type="button"
               onClick={onEnterDashboard}
-              className="text-[#00D9C6] font-bold hover:underline"
+              className="text-[#00D9C6] font-bold hover:underline cursor-pointer"
             >
               Open Dashboard
             </button>
