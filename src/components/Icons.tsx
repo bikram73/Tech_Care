@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Tech.Care brand logo mark (Exact 4-faceted cross icon from TestLogo.jpg)
+// Tech.Care brand logo mark (Exact 4-faceted cross icon)
 export const TechCareMark: React.FC<{ className?: string; size?: number }> = ({
   className = "",
   size = 38,
@@ -8,54 +8,54 @@ export const TechCareMark: React.FC<{ className?: string; size?: number }> = ({
   <svg
     width={size}
     height={size}
-    viewBox="0 0 38 44"
+    viewBox="0 0 38 42"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={`shrink-0 ${className}`}
   >
-    {/* Left Translucent Ice Blue Wing */}
+    {/* Left Translucent Ice/Sky Blue Wing */}
     <path
-      d="M0 16.5L11.5 10L21.5 19.5L10 26L0 16.5Z"
+      d="M0.5 16L11.5 9.5L21.5 19L10.5 25.5L0.5 16Z"
       fill="url(#techcare-ice-grad)"
-      fillOpacity="0.9"
+      fillOpacity="0.92"
     />
 
     {/* Top Emerald Green Wing */}
     <path
-      d="M11.5 2L21.5 10.5V22H11.5V2Z"
+      d="M11.5 2L21.5 10.5V21.5H11.5V2Z"
       fill="url(#techcare-green-grad)"
     />
 
-    {/* Right Bright Cyan Wing */}
+    {/* Right Bright Turquoise/Cyan Wing */}
     <path
-      d="M21.5 10.5L35.5 18.5L24.5 27.5L21.5 22V10.5Z"
+      d="M21.5 10.5L35.5 18L24.5 27L21.5 21.5V10.5Z"
       fill="url(#techcare-cyan-grad)"
     />
 
     {/* Bottom Deep Royal Blue Wing */}
     <path
-      d="M11.5 22H21.5V31.5L11.5 41V22Z"
+      d="M11.5 21.5H21.5V31L11.5 40.5V21.5Z"
       fill="url(#techcare-blue-grad)"
     />
 
     <defs>
       {/* Green Gradient */}
-      <linearGradient id="techcare-green-grad" x1="11.5" y1="2" x2="21.5" y2="22" gradientUnits="userSpaceOnUse">
+      <linearGradient id="techcare-green-grad" x1="11.5" y1="2" x2="21.5" y2="21.5" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#00D284" />
         <stop offset="100%" stopColor="#01F0D0" />
       </linearGradient>
       {/* Cyan Gradient */}
-      <linearGradient id="techcare-cyan-grad" x1="21.5" y1="10" x2="35.5" y2="24" gradientUnits="userSpaceOnUse">
+      <linearGradient id="techcare-cyan-grad" x1="21.5" y1="10.5" x2="35.5" y2="23" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#01F0D0" />
-        <stop offset="100%" stopColor="#00D7BD" />
+        <stop offset="100%" stopColor="#00D2B8" />
       </linearGradient>
       {/* Ice Blue Gradient */}
-      <linearGradient id="techcare-ice-grad" x1="0" y1="16.5" x2="21.5" y2="20" gradientUnits="userSpaceOnUse">
+      <linearGradient id="techcare-ice-grad" x1="0.5" y1="16" x2="21.5" y2="19" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#BAE6FD" />
         <stop offset="100%" stopColor="#8AD3F5" />
       </linearGradient>
       {/* Blue Gradient */}
-      <linearGradient id="techcare-blue-grad" x1="11.5" y1="22" x2="21.5" y2="42" gradientUnits="userSpaceOnUse">
+      <linearGradient id="techcare-blue-grad" x1="11.5" y1="21.5" x2="21.5" y2="40.5" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#0066CC" />
         <stop offset="100%" stopColor="#00438E" />
       </linearGradient>
@@ -63,7 +63,7 @@ export const TechCareMark: React.FC<{ className?: string; size?: number }> = ({
   </svg>
 );
 
-// Tech.Care complete brand logo (Mark + Typography matching TestLogo.jpg)
+// Tech.Care complete brand logo (Mark + Typography)
 export const TechCareLogo: React.FC<{ className?: string; dark?: boolean; markSize?: number }> = ({
   className = "h-9",
   dark = false,
@@ -71,10 +71,10 @@ export const TechCareLogo: React.FC<{ className?: string; dark?: boolean; markSi
 }) => (
   <div className={`flex items-center gap-2 select-none ${className}`}>
     <TechCareMark size={markSize} />
-    <div className={`font-extrabold text-[24px] tracking-[-0.03em] ${dark ? 'text-white' : 'text-[#072635]'} leading-none flex items-baseline font-sans`}>
-      <span className="font-extrabold">Tech</span>
-      <span className="text-[#01F0D0] text-[24px] leading-none mx-[1px] font-black inline-block translate-y-[-1px]">.</span>
-      <span className="font-extrabold">Care</span>
+    <div className={`font-extrabold text-[25px] tracking-[-0.03em] ${dark ? 'text-white' : 'text-[#072635]'} leading-none flex items-center font-sans`}>
+      <span>Tech</span>
+      <span className="w-[7px] h-[7px] rounded-full bg-[#01F0D0] inline-block mx-[2px] mt-2 shrink-0 shadow-xs" />
+      <span>Care</span>
     </div>
   </div>
 );

@@ -1,47 +1,49 @@
 <svg width="215" height="44" viewBox="0 0 215 44" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- Top Green Wing Gradient -->
-    <linearGradient id="logo-top-green" x1="11.5" y1="2" x2="21.5" y2="22" gradientUnits="userSpaceOnUse">
+    <linearGradient id="logo-top-green" x1="11.5" y1="2" x2="21.5" y2="21.5" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#00D284"/>
       <stop offset="100%" stop-color="#01F0D0"/>
     </linearGradient>
     
     <!-- Right Bright Cyan Wing Gradient -->
-    <linearGradient id="logo-right-cyan" x1="21.5" y1="10" x2="35.5" y2="24" gradientUnits="userSpaceOnUse">
+    <linearGradient id="logo-right-cyan" x1="21.5" y1="10.5" x2="35.5" y2="23" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#01F0D0"/>
-      <stop offset="100%" stop-color="#00D7BD"/>
+      <stop offset="100%" stop-color="#00D2B8"/>
     </linearGradient>
     
     <!-- Left Translucent Ice Blue Gradient -->
-    <linearGradient id="logo-left-ice" x1="0" y1="16" x2="21.5" y2="20" gradientUnits="userSpaceOnUse">
+    <linearGradient id="logo-left-ice" x1="0.5" y1="16" x2="21.5" y2="19" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#BAE6FD"/>
       <stop offset="100%" stop-color="#8AD3F5"/>
     </linearGradient>
 
     <!-- Bottom Royal Blue Wing Gradient -->
-    <linearGradient id="logo-bottom-blue" x1="11.5" y1="22" x2="21.5" y2="42" gradientUnits="userSpaceOnUse">
+    <linearGradient id="logo-bottom-blue" x1="11.5" y1="21.5" x2="21.5" y2="40.5" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#0066CC"/>
       <stop offset="100%" stop-color="#00438E"/>
     </linearGradient>
   </defs>
 
   <!-- Faceted 4-Wing Medical Cross Mark -->
-  <g transform="translate(2, 1)">
+  <g transform="translate(1, 1)">
     <!-- Left Ice Blue Wing (Faceted underlay) -->
-    <path d="M0 16.5L11.5 10L21.5 19.5L10 26L0 16.5Z" fill="url(#logo-left-ice)" fill-opacity="0.88"/>
+    <path d="M0.5 16L11.5 9.5L21.5 19L10.5 25.5L0.5 16Z" fill="url(#logo-left-ice)" fill-opacity="0.92"/>
     
     <!-- Top Green Wing -->
-    <path d="M11.5 2L21.5 10.5V22H11.5V2Z" fill="url(#logo-top-green)"/>
+    <path d="M11.5 2L21.5 10.5V21.5H11.5V2Z" fill="url(#logo-top-green)"/>
     
     <!-- Right Cyan Wing -->
-    <path d="M21.5 10.5L35.5 18.5L24.5 27.5L21.5 22V10.5Z" fill="url(#logo-right-cyan)"/>
+    <path d="M21.5 10.5L35.5 18L24.5 27L21.5 21.5V10.5Z" fill="url(#logo-right-cyan)"/>
     
     <!-- Bottom Royal Blue Wing -->
-    <path d="M11.5 22H21.5V31.5L11.5 41V22Z" fill="url(#logo-bottom-blue)"/>
+    <path d="M11.5 21.5H21.5V31L11.5 40.5V21.5Z" fill="url(#logo-bottom-blue)"/>
   </g>
 
   <!-- Typography: Tech.Care -->
-  <text x="46" y="32" font-family="'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="30" font-weight="800" letter-spacing="-0.03em" fill="#072635">
-    Tech<tspan fill="#01F0D0">.</tspan>Care
-  </text>
+  <g transform="translate(44, 30)">
+    <text font-family="'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" letter-spacing="-0.03em" fill="#072635">
+      Tech<tspan dx="2" fill="#01F0D0">.</tspan><tspan dx="2" fill="#072635">Care</tspan>
+    </text>
+  </g>
 </svg>
