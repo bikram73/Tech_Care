@@ -276,6 +276,88 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnterDashboard }) => {
         </div>
       </section>
 
+      {/* Diagnostic & Clinical Records Section */}
+      <section id="records" className="py-16 bg-[#F0F4F8] border-b border-[#E6E9EC] px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
+            <span className="text-xs font-bold tracking-widest text-[#00D9C6] uppercase">
+              Patient Data Management
+            </span>
+            <h2 className="text-3xl font-extrabold text-[#072635]">
+              Diagnostic & Clinical Records
+            </h2>
+            <p className="text-[#6B7C86] text-base">
+              Centralized record-keeping ensuring physicians, nurses, and lab technicians maintain complete clinical visibility.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Record Item 1 */}
+            <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E6E9EC] shadow-xs hover:shadow-md transition">
+              <div className="w-12 h-12 rounded-xl bg-[#DDF4FC] flex items-center justify-center mb-5">
+                <FileSpreadsheet className="w-6 h-6 text-[#00D9C6]" />
+              </div>
+              <h3 className="text-lg font-bold text-[#072635] mb-2">Structured Diagnostic List</h3>
+              <p className="text-[#6B7C86] text-[14px] leading-relaxed mb-4">
+                Record exact problem names, clinical definitions, and diagnostic observations (e.g., Hypertension, Type 2 Diabetes, Asthma) with standardized status tags.
+              </p>
+              <div className="bg-[#F6F7F8] p-3.5 rounded-xl text-xs space-y-2 border border-[#E6E9EC]/50">
+                <div className="flex items-center justify-between text-[#072635] font-semibold">
+                  <span>Hypertension</span>
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px]">Under Observation</span>
+                </div>
+                <div className="flex items-center justify-between text-[#072635] font-semibold">
+                  <span>Type 2 Diabetes</span>
+                  <span className="px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 text-[11px]">Cured</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Record Item 2 */}
+            <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E6E9EC] shadow-xs hover:shadow-md transition">
+              <div className="w-12 h-12 rounded-xl bg-[#FFE3E8] flex items-center justify-center mb-5">
+                <ShieldCheck className="w-6 h-6 text-rose-500" />
+              </div>
+              <h3 className="text-lg font-bold text-[#072635] mb-2">Lab Test Archives & Downloads</h3>
+              <p className="text-[#6B7C86] text-[14px] leading-relaxed mb-4">
+                Seamless digital storage of blood counts, CT scans, radiology, lipid panels, and pathology reports ready for immediate one-click downloading.
+              </p>
+              <div className="bg-[#F6F7F8] p-3.5 rounded-xl text-xs space-y-2 border border-[#E6E9EC]/50">
+                <div className="flex items-center justify-between text-[#072635] font-medium">
+                  <span>Blood Tests (Full Panel)</span>
+                  <span className="text-[#00D9C6] font-bold">PDF Ready</span>
+                </div>
+                <div className="flex items-center justify-between text-[#072635] font-medium">
+                  <span>CT Scans - Thorax</span>
+                  <span className="text-[#00D9C6] font-bold">DICOM / PDF</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Record Item 3 */}
+            <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E6E9EC] shadow-xs hover:shadow-md transition">
+              <div className="w-12 h-12 rounded-xl bg-[#F4F0FE] flex items-center justify-center mb-5">
+                <Users className="w-6 h-6 text-[#8066D9]" />
+              </div>
+              <h3 className="text-lg font-bold text-[#072635] mb-2">Comprehensive Patient Demographics</h3>
+              <p className="text-[#6B7C86] text-[14px] leading-relaxed mb-4">
+                Instantly retrieve verified contact info, date of birth, emergency contacts, insurance carriers, and primary physician assignments in one pane.
+              </p>
+              <div className="bg-[#F6F7F8] p-3.5 rounded-xl text-xs space-y-2 border border-[#E6E9EC]/50">
+                <div className="flex items-center justify-between text-[#072635] font-medium">
+                  <span className="text-[#707070]">Emergency Contact:</span>
+                  <span className="font-bold">Philip Taylor</span>
+                </div>
+                <div className="flex items-center justify-between text-[#072635] font-medium">
+                  <span className="text-[#707070]">Insurance Provider:</span>
+                  <span className="font-bold">Sunrise Health Care</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Live Integration Banner */}
       <section id="monitoring" className="py-16 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto bg-gradient-to-br from-[#072635] to-[#123E56] rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden">
@@ -306,18 +388,116 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnterDashboard }) => {
         </div>
       </section>
 
+      {/* About Platform Section */}
+      <section id="about" className="py-16 bg-white border-t border-[#E6E9EC] px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DDF4FC] text-[#072635] text-xs font-bold">
+                <ShieldCheck className="w-4 h-4 text-[#00D9C6]" />
+                <span>Enterprise Grade Security</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#072635] leading-tight">
+                About the Tech.Care Healthcare Platform
+              </h2>
+              <p className="text-[#6B7C86] text-base leading-relaxed">
+                Tech.Care was engineered to reduce physician charting fatigue and eliminate data silos. By combining live telemetry streams with structured historical diagnostic charts, clinicians can identify critical patient trends in seconds.
+              </p>
+              
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-[#01F0D0]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#00D9C6]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-[#072635]">Zero-Latency Vitals Synchronisation</h4>
+                    <p className="text-xs text-[#6B7C86] mt-0.5">Automated updates across temperature, pulse, respiratory rate, and blood pressure.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-[#01F0D0]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#00D9C6]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-[#072635]">HIPAA & SOC-2 Compliant Architecture</h4>
+                    <p className="text-xs text-[#6B7C86] mt-0.5">End-to-end encryption for diagnostic notes, lab assets, and patient communications.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-[#01F0D0]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#00D9C6]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-[#072635]">Multi-Specialty Care Coordination</h4>
+                    <p className="text-xs text-[#6B7C86] mt-0.5">Enabling general practitioners, cardiologists, and lab specialists to collaborate on a single unified chart.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6 bg-[#F6F7F8] p-8 rounded-3xl border border-[#E6E9EC] space-y-6">
+              <h3 className="text-xl font-bold text-[#072635]">Clinical Performance Metrics</h3>
+              
+              <div className="space-y-4">
+                <div>
+                  <div className="flex justify-between text-xs font-bold text-[#072635] mb-1">
+                    <span>Diagnostic Speed</span>
+                    <span className="text-[#00D9C6]">4x Faster</span>
+                  </div>
+                  <div className="h-2 w-full bg-[#E6E9EC] rounded-full overflow-hidden">
+                    <div className="h-full bg-[#01F0D0] rounded-full w-[92%]"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-xs font-bold text-[#072635] mb-1">
+                    <span>Charting Accuracy</span>
+                    <span className="text-[#00D9C6]">99.8%</span>
+                  </div>
+                  <div className="h-2 w-full bg-[#E6E9EC] rounded-full overflow-hidden">
+                    <div className="h-full bg-[#8066D9] rounded-full w-[99%]"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-xs font-bold text-[#072635] mb-1">
+                    <span>Clinician Satisfaction</span>
+                    <span className="text-[#00D9C6]">98.4%</span>
+                  </div>
+                  <div className="h-2 w-full bg-[#E6E9EC] rounded-full overflow-hidden">
+                    <div className="h-full bg-rose-400 rounded-full w-[98%]"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-[#E6E9EC] flex items-center justify-between">
+                <span className="text-xs text-[#6B7C86]">Assessment Prototype v2.4</span>
+                <button
+                  type="button"
+                  onClick={onEnterDashboard}
+                  className="text-xs font-bold text-[#072635] hover:text-[#00D9C6] flex items-center gap-1 cursor-pointer transition"
+                >
+                  <span>Launch Clinician View</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer id="about" className="bg-white border-t border-[#E6E9EC] py-8 px-4 sm:px-8 text-center text-xs text-[#707070]">
+      <footer className="bg-[#072635] text-white py-10 px-4 sm:px-8 text-center text-xs">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <TechCareLogo />
           </div>
-          <p>© 2026 Tech.Care Clinical Health Solutions. Front-End Developer Skill Assessment.</p>
+          <p className="text-slate-400">© 2026 Tech.Care Clinical Health Solutions. Front-End Developer Skill Assessment.</p>
           <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={onEnterDashboard}
-              className="text-[#00D9C6] font-bold hover:underline cursor-pointer"
+              className="text-[#01F0D0] font-bold hover:underline cursor-pointer"
             >
               Open Dashboard
             </button>
