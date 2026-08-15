@@ -1,12 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" width="38" height="38">
   <defs>
-    <linearGradient id="techcare-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#01F0D0"/>
-      <stop offset="100%" stop-color="#00D2B8"/>
+    <linearGradient id="techcare-green" x1="12" y1="1" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00D284"/>
+      <stop offset="1" stop-color="#01F0D0"/>
+    </linearGradient>
+    <linearGradient id="techcare-cyan" x1="21" y1="8.5" x2="36" y2="21.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#01F0D0"/>
+      <stop offset="1" stop-color="#00D7BD"/>
+    </linearGradient>
+    <linearGradient id="techcare-blue" x1="12" y1="21" x2="21" y2="37" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0066CC"/>
+      <stop offset="1" stop-color="#004899"/>
     </linearGradient>
   </defs>
-  <!-- Rounded Brand Container -->
-  <rect width="32" height="32" rx="8" fill="url(#techcare-grad)"/>
-  <!-- Crisp Medical Plus Symbol -->
-  <path d="M16 6.5V25.5M6.5 16H25.5" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Top Green Wing -->
+  <path d="M12 1L21 8.5V21H12V1Z" fill="url(#techcare-green)"/>
+  
+  <!-- Right Bright Cyan Wing -->
+  <path d="M21 8.5L36 14.5V21.5H21V8.5Z" fill="url(#techcare-cyan)"/>
+  
+  <!-- Left Translucent Sky Blue Wing -->
+  <path d="M1 14.5L12 11V21.5H1L1 14.5Z" fill="#A2DEF8" fill-opacity="0.9"/>
+  
+  <!-- Bottom Deep Royal Blue Wing -->
+  <path d="M12 21H21V37L12 29.5V21Z" fill="url(#techcare-blue)"/>
 </svg>

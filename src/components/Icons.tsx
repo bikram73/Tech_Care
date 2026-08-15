@@ -1,23 +1,72 @@
 import React from 'react';
 
-// Tech.Care brand logo
-export const TechCareLogo: React.FC<{ className?: string; dark?: boolean }> = ({ className = "h-8", dark = false }) => (
+// Tech.Care brand logo mark (4-faceted cross icon)
+export const TechCareMark: React.FC<{ className?: string; size?: number }> = ({
+  className = "",
+  size = 36,
+}) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 38 38"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`shrink-0 ${className}`}
+  >
+    {/* Top Green Wing */}
+    <path
+      d="M12 1L21 8.5V21H12V1Z"
+      fill="url(#techcare-green-grad)"
+    />
+    {/* Right Bright Cyan Wing */}
+    <path
+      d="M21 8.5L36 14.5V21.5H21V8.5Z"
+      fill="url(#techcare-cyan-grad)"
+    />
+    {/* Left Translucent Sky Blue Wing */}
+    <path
+      d="M1 14.5L12 11V21.5H1L1 14.5Z"
+      fill="#A2DEF8"
+      fillOpacity="0.9"
+    />
+    {/* Bottom Deep Royal Blue Wing */}
+    <path
+      d="M12 21H21V37L12 29.5V21Z"
+      fill="url(#techcare-blue-grad)"
+    />
+
+    <defs>
+      {/* Green Gradient */}
+      <linearGradient id="techcare-green-grad" x1="12" y1="1" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#00D284" />
+        <stop offset="1" stopColor="#01F0D0" />
+      </linearGradient>
+      {/* Cyan Gradient */}
+      <linearGradient id="techcare-cyan-grad" x1="21" y1="8.5" x2="36" y2="21.5" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#01F0D0" />
+        <stop offset="1" stopColor="#00D7BD" />
+      </linearGradient>
+      {/* Blue Gradient */}
+      <linearGradient id="techcare-blue-grad" x1="12" y1="21" x2="21" y2="37" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#0066CC" />
+        <stop offset="1" stopColor="#004899" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+// Tech.Care complete brand logo (Mark + Typography)
+export const TechCareLogo: React.FC<{ className?: string; dark?: boolean; markSize?: number }> = ({
+  className = "h-9",
+  dark = false,
+  markSize = 34,
+}) => (
   <div className={`flex items-center gap-2.5 select-none ${className}`}>
-    <div className="w-[38px] h-[38px] bg-gradient-to-br from-[#01F0D0] to-[#00D2B8] rounded-[10px] flex items-center justify-center shadow-xs">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-        <path
-          d="M12 4V20M4 12H20"
-          stroke="#FFFFFF"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </div>
-    <div className={`font-extrabold text-[22px] tracking-tight ${dark ? 'text-white' : 'text-[#072635]'} leading-none`}>
+    <TechCareMark size={markSize} />
+    <div className={`font-extrabold text-[23px] tracking-[-0.03em] ${dark ? 'text-white' : 'text-[#072635]'} leading-none flex items-center`}>
       <span>Tech</span>
-      <span className="text-[#01F0D0]">.</span>
-      <span className={`font-bold ${dark ? 'text-white' : 'text-[#072635]'}`}>Care</span>
+      <span className="w-2.5 h-2.5 rounded-full bg-[#01F0D0] inline-block mx-[2px] mt-1 shrink-0"></span>
+      <span className={dark ? 'text-white' : 'text-[#072635]'}>Care</span>
     </div>
   </div>
 );
