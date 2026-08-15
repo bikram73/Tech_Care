@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Tech.Care brand logo
-export const TechCareLogo: React.FC<{ className?: string }> = ({ className = "h-8" }) => (
+export const TechCareLogo: React.FC<{ className?: string; dark?: boolean }> = ({ className = "h-8", dark = false }) => (
   <div className={`flex items-center gap-2.5 select-none ${className}`}>
     <div className="w-[38px] h-[38px] bg-gradient-to-br from-[#01F0D0] to-[#00D2B8] rounded-[10px] flex items-center justify-center shadow-xs">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -14,10 +14,10 @@ export const TechCareLogo: React.FC<{ className?: string }> = ({ className = "h-
         />
       </svg>
     </div>
-    <div className="font-extrabold text-[22px] tracking-tight text-[#072635] leading-none">
+    <div className={`font-extrabold text-[22px] tracking-tight ${dark ? 'text-white' : 'text-[#072635]'} leading-none`}>
       <span>Tech</span>
       <span className="text-[#01F0D0]">.</span>
-      <span className="font-bold text-[#072635]">Care</span>
+      <span className={`font-bold ${dark ? 'text-white' : 'text-[#072635]'}`}>Care</span>
     </div>
   </div>
 );

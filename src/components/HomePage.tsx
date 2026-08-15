@@ -490,14 +490,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnterDashboard }) => {
       <footer className="bg-[#072635] text-white py-10 px-4 sm:px-8 text-center text-xs">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <TechCareLogo />
+            <TechCareLogo dark={true} />
           </div>
-          <p className="text-slate-400">© 2026 Tech.Care Clinical Health Solutions. Front-End Developer Skill Assessment.</p>
+          <p className="text-slate-200 font-medium text-[13px]">
+            © 2026 Tech.Care Clinical Health Solutions. Front-End Developer Skill Assessment.
+          </p>
           <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={onEnterDashboard}
-              className="text-[#01F0D0] font-bold hover:underline cursor-pointer"
+              className="text-[#01F0D0] hover:text-white font-bold text-[13px] hover:underline cursor-pointer transition"
             >
               Open Dashboard
             </button>

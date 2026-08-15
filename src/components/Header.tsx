@@ -3,9 +3,6 @@ import { TechCareLogo } from './Icons';
 import {
   House,
   Users,
-  Calendar,
-  MessageSquare,
-  CreditCard,
   Check,
 } from 'lucide-react';
 
@@ -26,9 +23,6 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onGoToH
   const navItems = [
     { id: 'overview', label: 'Overview', icon: House },
     { id: 'patients', label: 'Patients', icon: Users },
-    { id: 'schedule', label: 'Schedule', icon: Calendar },
-    { id: 'message', label: 'Message', icon: MessageSquare },
-    { id: 'transactions', label: 'Transactions', icon: CreditCard },
   ];
 
   return (
